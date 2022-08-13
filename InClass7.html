@@ -1,0 +1,165 @@
+<!-- In Class Practice 7 – COSC 2328 – Professor McCurry -->
+<!-- Implemented by - Fayzan Bhatti -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body
+      {
+        background-color: lightblue;
+      }
+      .result
+      {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>In this practice we will be implementing a variety of input checkers!</h3>
+    <p>The method headers and descriptions of what they should do are provided</p>
+    <input type="text" id="mydata"><br>
+    <button onclick="find_num()">Check num!</button>
+    <button onclick="find_whitespace()">Check whitespace!</button>
+    <button onclick="replace_e()">Replace e!</button>
+    <button onclick="count_e()">Count e!</button>
+    <button onclick="replace_duck()">Replace duck!</button>
+    <button onclick="pass_verify()">Password verify!</button>
+    <p class="result" id="p1"></p>
+    <p class="result" id="p2"></p>
+    <p class="result" id="p3"></p>
+    <p class="result" id="p4"></p>
+    <p class="result" id="p5"></p>
+    <p class="result" id="p6"></p>
+
+    <script>
+      // For this we aren't concerned with the total count of digits, only if there is at least one digit inside the String
+      function find_num()
+      {
+      	const val = document.querySelector('input').value;
+       
+       	console.log("value: " + val)
+       	
+       	const regex = /\d/;
+       	
+       	const doesItHaveNumber = regex.test(val);
+       	
+       	console.log(doesItHaveNumber); // true
+       	
+       	if (doesItHaveNumber == true)
+		    {
+       	document.getElementById("p1").innerHTML = "The user input DOES contain numbers";
+	  	  }
+	    	else
+		    {
+       	document.getElementById("p1").innerHTML = "The user input DOES NOT contain numbers";
+
+		    }
+      }
+
+
+      // Reminder that whitespace means more than just a single space character, we want to count up instances of tabs and newlines as well
+      function find_whitespace()
+      {
+        const val = document.querySelector('input').value;
+
+        console.log("value: " + val)
+
+        const isWhiteSpace = /\s/.test(val)
+
+        console.log(isWhiteSpace);
+
+        document.getElementById("p2").innerHTML = "White Space: " + (isWhiteSpace);
+      }
+      
+      // You'll need to use the string.replace(regex, replacement) method here.
+      // Reminder that your regex needs to contain the global modifier if you want to do a replace all in a single call
+      // Test using the following string"Joyce enjoyed eating pancakes with ketchup."
+      function replace_e()
+     {
+       const val = document.querySelector('input').value;
+
+       const regex = /[e]/g;
+
+       const newStr = val.replace(regex, "E")
+
+       document.getElementById("p3").innerHTML = "The modified string is: " + newStr;
+     }
+
+      // Here we'll want to use the loop structure present in examples regexp2-4
+      // while(reg.test(string)){...}
+      // Maintain a counter as we iterate through that loop
+	    //Use the following string"Joyce enjoyed eating pancakes with ketchup."
+      function count_e()
+      {
+      	var count = 0;
+
+      	const regex = /[e]/gi;
+
+		    const val = document.querySelector('input').value;
+
+	    	while(regex.test(val)== true)
+		    {
+		    count++;
+			
+	    	}
+		    document.getElementById("p4").innerHTML = "The number of e's in the string is: " + count;
+
+      }
+
+
+      // Just as the above, will need to make the regex global. Remember to add the case insensitive modifier
+	    //Test use the following sentence: Duck deck! That duck is on the deck! That duck had a long neck!
+      function replace_duck()
+     {
+       const val = document.querySelector('input').value;
+
+       console.log("value: " + val)
+
+       const regex = /duck/gi;
+
+       const newStr = val.replace(regex, "swan")
+
+       document.getElementById("p5").innerHTML = "Replace Duck: " + newStr;
+     }
+
+
+      // HINT: the full regex for all three conditions can be large, potentially break it into multiple regex checks instead of one large equation
+      function pass_verify()
+     {
+       const val = document.querySelector('input').value;
+ 
+       //Check for uppercase
+       const regexUpper = /[A-Z]/;
+       const doesItHaveUpper = regexUpper.test(val)
+ 
+       //Check for lowercase
+       const regexLower = /[a-z]/;
+       const doesItHaveLower = regexLower.test(val);
+ 
+       //Check for Number
+       const regexNumber = /\d/;
+       const doesItHaveNumber = regexNumber.test(val);
+ 
+       // Check for 12 <= digits
+       const regexLength = /^.{12,}$/;
+       const doesItHave12Digits = regexLength.test(val);
+ 
+       // IF ALL CHECKERS == TRUE... VALID PASSWORD
+       if(doesItHaveUpper==true && doesItHaveLower==true && doesItHaveNumber==true && doesItHave12Digits==true)
+       {
+         document.getElementById("p6").innerHTML = "VALID PASSWORD";
+       }
+ 
+       // IF A CHECKER FAILS... INVALID PASSWORD
+       else
+       {
+         document.getElementById("p6").innerHTML = "The entered password is invalid. PLEASE TRY AGAIN";
+ 
+       }
+      
+     }
+
+    </script>
+  </body>
+</html>
